@@ -1,4 +1,4 @@
-# vue-crash-2021
+# Vue Task Manager
 
 ## Project setup
 ```
