@@ -13,6 +13,8 @@
       @delete-task="deleteTask"
       :tasks="tasks"
     />
+
+    <Footer />
   </div>
 </template>
 
@@ -21,6 +23,7 @@
 import Header from "./components/Header.vue";
 import Tasks from "./components/Tasks.vue";
 import AddTask from "./components/AddTask.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
@@ -28,6 +31,7 @@ export default {
     Header,
     Tasks,
     AddTask,
+    Footer,
   },
 
   data() {
@@ -41,6 +45,8 @@ export default {
     toogleAddTask() {
       this.showAddTask = !this.showAddTask;
     },
+
+    // Add Method To UI and Json Backend
     async addTask(task) {
       const res = await fetch("api/tasks", {
         method: "POST",
@@ -50,16 +56,36 @@ export default {
       const data = await res.json();
       this.tasks = [...this.tasks, data];
     },
-    deleteTask(id) {
+
+    // Delete Method from UI and Json Backend
+    async deleteTask(id) {
       if (confirm("Are you sure?")) {
-        this.tasks = this.tasks.filter((x) => x.id !== id);
+        const res = await fetch(`api/tasks/${id}`, {
+          method: "DELETE",
+        });
+
+        res.status === 200
+          ? (this.tasks = this.tasks.filter((x) => x.id !== id))
+          : alert("Error Deleting Task");
       }
     },
 
-    toggleReminder(id) {
-      console.log(id);
+    async toggleReminder(id) {
+      const taskToToggle = await this.fetchOneTask(id);
+      const updTask = {
+        ...taskToToggle,
+        reminder: !taskToToggle.reminder,
+      };
+
+      const res = await fetch(`api/tasks/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updTask),
+      });
+
+      const data = await res.json();
       this.tasks = this.tasks.map((x) =>
-        x.id == id ? { ...x, reminder: !x.reminder } : x
+        x.id == id ? { ...x, reminder: data.reminder } : x
       );
     },
 

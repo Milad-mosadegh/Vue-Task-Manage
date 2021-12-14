@@ -13,16 +13,10 @@
       "day": "13.12.2021 10:00"
     },
     {
-      "id": 3,
-      "text": "Do Shit",
-      "reminder": false,
-      "day": "01.01.3000 10:00"
-    },
-    {
       "text": "Dr Appt",
       "day": "Mar 10th at 13:00",
-      "reminder": false,
-      "id": 4
+      "reminder": true,
+      "id": 3
     }
   ]
 }
