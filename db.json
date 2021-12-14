@@ -17,6 +17,12 @@
       "day": "Mar 10th at 13:00",
       "reminder": true,
       "id": 3
+    },
+    {
+      "text": "Go to Gym",
+      "day": "from today",
+      "reminder": true,
+      "id": 4
     }
   ]
 }
