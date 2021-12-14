@@ -56,29 +56,22 @@ export default {
         x.id == id ? { ...x, reminder: !x.reminder } : x
       );
     },
+
+    async fetchTasks() {
+      const res = await fetch("api/tasks");
+      const data = await res.json();
+      return data;
+    },
+
+    async fetchOneTask(id) {
+      const res = await fetch(`api/tasks/${id}`);
+      const data = await res.json();
+      return data;
+    },
   },
 
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "Doctors Appointment",
-        reminder: true,
-        day: "1.12.2090 24:00",
-      },
-      {
-        id: 2,
-        text: "Learn Vue",
-        reminder: true,
-        day: "13.12.2021 10:00",
-      },
-      {
-        id: 3,
-        text: "Do Shit",
-        reminder: false,
-        day: "01.01.3000 10:00",
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks();
   },
 };
 </script>
