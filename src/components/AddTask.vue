@@ -83,4 +83,13 @@ export default {
   flex: 2;
   height: 20px;
 }
+
+.btn {
+  background: green;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 102%;
+}
 </style>
